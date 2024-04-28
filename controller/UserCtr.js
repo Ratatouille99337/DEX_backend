@@ -104,7 +104,6 @@ exports.login = async (req, res) => {
 exports.sendMail = async (req, res) => {
   // Get Verifycode
   var code = generateRandomString(6);
-  console.log("code", code);
   var transport = nodemailer.createTransport(
     smtpTransport({
       service: "Gmail",

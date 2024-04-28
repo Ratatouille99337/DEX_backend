@@ -12,7 +12,9 @@ async function fetchCryptoData(res) {
       "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?limit=100",
       {
         headers: {
-          "X-CMC_PRO_API_KEY": "7281cb38-d68e-41f2-8dfb-793727391e41",
+          Accepts: "application/json",
+          // "X-CMC_PRO_API_KEY": "6413a04e-32f7-4907-8588-ee16541e827c",
+          "X-CMC_PRO_API_KEY": "482b34b5-bdbd-4157-840d-82aa9d1c5637",
         },
       }
     );
@@ -23,7 +25,6 @@ async function fetchCryptoData(res) {
     }
 
     // Log the data in the console
-    console.log(response.data);
   } catch (error) {
     console.error("Error fetching the crypto data:", error);
 
