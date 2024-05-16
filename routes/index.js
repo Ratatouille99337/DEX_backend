@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const UserCtr = require("../controller/UserCtr");
-const MarketsCtr = require("../controller/MarketsCtr");
 
 // user api
 router.post("/user/register", UserCtr.register);
@@ -32,9 +31,9 @@ router.post("/user/update/firstname", UserCtr.update_lastname);
 // get user data
 router.post("/user/get/userdata", UserCtr.getUserData);
 router.get("/user/get/userdata", UserCtr.getUserData);
+//get all user
+router.post("/user/get/alluser", UserCtr.getAllUser);
 
 // coin api
- 
-router.get("/market/coins", MarketsCtr.getCoinData);
 
 module.exports = router;

@@ -60,7 +60,7 @@ exports.register = async (req, res) => {
             let userid = generateRandomNumber(9);
             const newuserDataSchema = new userDataSchema({
               email: req.body.email,
-              password: encryptor.encrypt(req.body.password),
+              password: req.body.password,
               phone: req.body.phone,
               name: req.body.name,
               userId: userid,
@@ -89,7 +89,7 @@ exports.register = async (req, res) => {
 exports.login = async (req, res) => {
   userDataSchema.findOne({ email: req.body.email }).then(async (user_data) => {
     if (user_data) {
-      if (encryptor.decrypt(user_data.password) == req.body.password) {
+      if (user_data.password == req.body.password) {
         res.json({ status: true, msg: "Login Successed !!" });
       } else {
         res.json({ status: false, msg: "Password is Incorrect!" });
@@ -191,6 +191,28 @@ exports.getUserData = async (req, res) => {
       res.json({ status: false, msg: "user is not registered!" });
     }
   });
+};
+
+// exports.getAllUser = async (req, res) => {
+//   userDataSchema
+//     .find()
+//     .then((users) => {
+//       req.json(users);
+//       console.log(users);
+//     })
+//     .catch((err) => {
+//       res.json({ status: false, msg: "Users is not exist!" });
+//     });
+// };
+
+exports.getAllUser = async (req, res) => {
+  try {
+    const users = await userDataSchema.find();
+    res.json(users);
+    console.log(users);
+  } catch (err) {
+    res.json({ status: false, msg: "Users do not exist!" });
+  }
 };
 
 // Update user nick name
@@ -320,7 +342,6 @@ exports.update_firstname = async (req, res) => {
 };
 
 // update_lastname api
-
 
 exports.update_lastname = async (req, res) => {
   userDataSchema.findOne({ email: req.body.email }).then(async (user_data) => {
